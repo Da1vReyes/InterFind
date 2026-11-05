@@ -15,7 +15,18 @@
 
 ## About
 
-InterFind is a redesigned, solo version of **PasaFinder**, a university team project. It starts from that codebase and reworks it into a self-contained portfolio app: no backend, no Firebase, no cloud accounts. Everything runs and is stored on the device.
+InterFind is kind of a fork of **PasaFinder**, the iOS app my team and I built and presented in 2024 as the final project of our iOS diploma course. It starts from that codebase and goes further than what we presented back then.
+
+The original app was built to work against a real backend: a REST API for accounts and listings, plus Firebase. This version doesn't use any API. It replaces those production-oriented pieces with local implementations, so anyone can clone it, hit Run and try every feature without a server, keys or an internet connection. That makes it portfolio-friendly rather than production-ready.
+
+What changed since the 2024 version:
+
+- **No backend:** a local store replaces the API for internships, images and accounts
+- **No Firebase:** the SDK and its configuration are gone
+- **New flow:** first-launch onboarding, a one-tap demo account and log out
+- **Redesigned UI:** new tabs, Search as its own tab, initials avatars, per-listing stipends
+- **New brand:** name, logo, app icon and launch screen
+- **English throughout:** UI, code and docs
 
 ## Features
 
