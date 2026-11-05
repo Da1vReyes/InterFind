@@ -103,7 +103,7 @@ class IFUrgentJobsCell: UICollectionViewCell {
         jobTitleLabel.text = internship.title
         self.jobBenefitsStackView.configure(benefits: internship.benefits)
         companyAndLocationLabel.text = internship.companyName + " - " + internship.location
-        imageCompany.setImageWithResources("chanchito-feliz")
+        imageCompany.image = LocalStore.monogram(for: internship.companyName)
         
         updateButton()
     }

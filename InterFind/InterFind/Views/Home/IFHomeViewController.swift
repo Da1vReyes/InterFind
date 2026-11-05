@@ -56,7 +56,7 @@ class IFHomeViewController: UIViewController {
            let savedImage = UIImage(data: imageData) {
             profilePicture.image = savedImage
         } else {
-            profilePicture.setImageWithResources("chanchito-feliz")
+            profilePicture.image = LocalStore.avatar(for: UserDefaultsManager.shared.get(forKey: "name"))
         }
         let name = UserDefaultsManager.shared.get(forKey: "name")
         helloLabel.text = "Hola, \n\(name ?? "Amigo")"

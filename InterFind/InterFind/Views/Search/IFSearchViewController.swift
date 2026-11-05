@@ -46,16 +46,28 @@ class IFSearchViewController: UIViewController {
     }
     
     func setupUI() {
-        searchController.filteredInternships.count == 0 ? setEmptyState() : setupInternships()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setNavigationController()
-    }
-
-    func setupInternships() {
         configureCollectionView()
         configureDataSource()
+        configureEmptyState()
+        showResults(for: "")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        setNavigationController()
+        showResults(for: navigationItem.searchController?.searchBar.text ?? "")
+    }
+
+    /// Sin texto muestra todas las pasantías; con texto, las filtradas.
+    func showResults(for query: String) {
+        if query.isEmpty {
+            searchController.filteredInternships = homeController.internships
+        } else {
+            searchController.filterInternships(with: query, internships: homeController.internships)
+        }
+        let results = searchController.filteredInternships
+        emptyStateContainer.isHidden = !results.isEmpty
+        collectionView.isHidden = results.isEmpty
+        updateData(on: results)
     }
 
     func configureCollectionView() {
@@ -98,16 +110,11 @@ class IFSearchViewController: UIViewController {
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
     
-    func setEmptyState() {
-        
-        self.view.subviews.forEach{ subview in
-            subview.removeFromSuperview()
-        }
+    func configureEmptyState() {
         let searchEmptyStateViewController = IFEmptySearchStateViewController()
         self.addChildViewController(childVC: searchEmptyStateViewController, to: emptyStateContainer)
-        
         view.addSubview(emptyStateContainer)
-        
+
         NSLayoutConstraint.activate([
             emptyStateContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding * 3),
             emptyStateContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding * 2),
@@ -117,8 +124,17 @@ class IFSearchViewController: UIViewController {
     }
     
     func setNavigationController() {
-        let backButton = UIBarButtonItem(image: UIImage(systemName:"chevron.left"), style: .plain, target: self, action: #selector(didBackButtonTapped))
-        navigationItem.leftBarButtonItem = backButton
+        let isRootOfTab = navigationController?.viewControllers.first === self
+        if isRootOfTab {
+            title = "Buscar"
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.hidesSearchBarWhenScrolling = false
+            navigationItem.leftBarButtonItem = nil
+            tabBarController?.tabBar.isHidden = false
+        } else {
+            let backButton = UIBarButtonItem(image: UIImage(systemName:"chevron.left"), style: .plain, target: self, action: #selector(didBackButtonTapped))
+            navigationItem.leftBarButtonItem = backButton
+        }
         navigationController?.navigationBar.isHidden = false
     }
     
@@ -140,17 +156,7 @@ class IFSearchViewController: UIViewController {
 
 extension IFSearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let query = searchController.searchBar.text, !query.isEmpty else {
-            self.searchController.filteredInternships = []
-            self.setEmptyState()
-            return
-        }
-        
-        self.searchController.filterInternships(with: query, internships: homeController.internships)
-        setupInternships()
-        
-        self.searchController.filteredInternships.count == 0 ? self.setEmptyState() : self.updateData(on: self.searchController.filteredInternships)
-        
+        showResults(for: searchController.searchBar.text ?? "")
     }
 }
 

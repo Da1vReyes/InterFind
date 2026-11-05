@@ -162,6 +162,7 @@ class IFOnboardingVC: UIViewController {
     }
     
     func navigateToLogin() {
+        UserDefaults.standard.set(true, forKey: Constants.hasSeenOnboardingKey)
         let loginVC = IFLoginViewController()
         navigationController?.pushViewController(loginVC, animated: true)
     }

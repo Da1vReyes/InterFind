@@ -14,7 +14,7 @@ class IFSignUpViewController: UIViewController {
     let subtitleLabel = IFBodyLabel(text:  "Crea tu cuenta y accede a miles de oportunidades laborales ajustadas a tus habilidades y aspiraciones.")
     let nameTextField = IFTextFieldView(labelText: "Nombre completo", isSecure: false, placeholder: "Tu nombre")
     let emailTextField = IFTextFieldView(labelText: "Email", isSecure: false, placeholder: "tu@correo.com")
-    let passwordTextField = IFTextFieldView(labelText: "Contraseña", isSecure: false, placeholder: "Password")
+    let passwordTextField = IFTextFieldView(labelText: "Contraseña", isSecure: true, placeholder: "Password")
     let signUpButton = IFRoundedButton(text: "Registrarse")
     let loginLabel = IFBodyLabel(text: "¿Ya tienes una cuenta?")
     let loginButton = IFPlainButton(title: "Inciar Sesión", color: .accent)
@@ -124,11 +124,7 @@ class IFSignUpViewController: UIViewController {
     }
     
     func navigateToHome() {
-        let tabBarController = IFTabBarController(homeViewController: IFHomeViewController())
-        tabBarController.modalTransitionStyle = .crossDissolve
-        tabBarController.modalPresentationStyle = .overFullScreen
-        
-        self.present(tabBarController, animated: true)
+        AppRouter.showHome()
     }
     // MARK: Buttons
     func configureButtons() {

@@ -13,12 +13,24 @@ class IFLoginViewController: UIViewController {
     let titleLabel = IFTitleLabel(text: "Bienvenido", font: .systemFont(ofSize: 32, weight: .bold))
     let subtitleLabel = IFBodyLabel(text: "Inicia sesión para descubrir muchas oportunidades de pasantía adecuadas a tu carrera y habilidades")
     let emailTextField = IFTextFieldView(labelText: "Email", isSecure: false, placeholder: "tu@correo.com", keyboard: .emailAddress)
-    let passwordTextField = IFTextFieldView(labelText: "Contraseña", isSecure: false, placeholder: "Password")
+    let passwordTextField = IFTextFieldView(labelText: "Contraseña", isSecure: true, placeholder: "Password")
     let forgotPasswordButton = IFPlainButton(title: "¿Olvidaste la contraseña?", color: .subtitle, font: UIFont.systemFont(ofSize: 14))
     let loginButton = IFRoundedButton(text: "Iniciar Sesión")
     let signUpLabel = IFBodyLabel(text: "¿No tienes una cuenta aún?")
     let signUpButton = IFPlainButton(title: "Registrarse", color: .accent)
     let signUpView = UIView()
+    let demoButton: UIButton = {
+        var config = UIButton.Configuration.bordered()
+        config.title = "Entrar como \(Constants.DemoAccount.name) (demo)"
+        config.image = UIImage(systemName: "person.crop.circle.badge.checkmark")
+        config.imagePadding = 8
+        config.baseForegroundColor = .main
+        config.baseBackgroundColor = .secondarySystemBackground
+        config.cornerStyle = .medium
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     let controller = LoginController()
     
     let padding: CGFloat = 20
@@ -54,7 +66,7 @@ class IFLoginViewController: UIViewController {
         forgotPasswordButton.titleLabel?.textAlignment = .right
         signUpView.translatesAutoresizingMaskIntoConstraints = false
         
-        [titleLabel, subtitleLabel, emailTextField, passwordTextField, forgotPasswordButton, loginButton, signUpView, signUpButton].forEach { item in
+        [titleLabel, subtitleLabel, emailTextField, passwordTextField, forgotPasswordButton, loginButton, signUpView, signUpButton, demoButton].forEach { item in
             view.addSubview(item)
         }
         [signUpLabel].forEach { item in
@@ -105,7 +117,12 @@ class IFLoginViewController: UIViewController {
             signUpButton.trailingAnchor.constraint(equalTo: signUpView.trailingAnchor),
             signUpButton.leadingAnchor.constraint(equalTo: signUpLabel.trailingAnchor),
             signUpButton.topAnchor.constraint(equalTo: signUpView.topAnchor),
-            signUpButton.bottomAnchor.constraint(equalTo: signUpView.bottomAnchor)
+            signUpButton.bottomAnchor.constraint(equalTo: signUpView.bottomAnchor),
+
+            demoButton.topAnchor.constraint(equalTo: signUpView.bottomAnchor, constant: padding * 1.5),
+            demoButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding * 2),
+            demoButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding * 2),
+            demoButton.heightAnchor.constraint(equalToConstant: 50)
             
         ])
     }
@@ -114,6 +131,11 @@ class IFLoginViewController: UIViewController {
     func configureButtons() {
         loginButton.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButttonTapped), for: .touchUpInside)
+        demoButton.addTarget(self, action: #selector(demoTapped), for: .touchUpInside)
+    }
+
+    @objc func demoTapped() {
+        performLogin(email: Constants.DemoAccount.email, password: Constants.DemoAccount.password)
     }
     
     // MARK: LOGIN
@@ -135,7 +157,11 @@ class IFLoginViewController: UIViewController {
             )
             return
         }
-        
+
+        performLogin(email: email, password: password)
+    }
+
+    private func performLogin(email: String, password: String) {
         Task {
             self.showLoadingView()
             // verificar que el login esta bien
@@ -167,10 +193,7 @@ class IFLoginViewController: UIViewController {
     }
 
     private func navigateToHome() {
-        let tabBarController = IFTabBarController(homeViewController: IFHomeViewController())
-        tabBarController.modalPresentationStyle = .overFullScreen
-        tabBarController.modalTransitionStyle = .crossDissolve
-        self.present(tabBarController, animated: true)
+        AppRouter.showHome()
     }
     
     @objc func signUpButttonTapped() {

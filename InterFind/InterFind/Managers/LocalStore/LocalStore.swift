@@ -121,7 +121,9 @@ final class LocalStore {
         let words = name.split(separator: " ").prefix(2)
         let initials = words.compactMap { $0.first }.map(String.init).joined().uppercased()
         let palette: [UIColor] = [.systemBlue, .systemIndigo, .systemTeal, .systemPurple, .systemOrange, .systemGreen, .systemPink]
-        let color = palette[abs(name.hashValue) % palette.count]
+        // Suma estable (hashValue cambia en cada ejecución).
+        let seed = name.unicodeScalars.reduce(0) { $0 + Int($1.value) }
+        let color = palette[seed % palette.count]
         let size = CGSize(width: 200, height: 200)
 
         return UIGraphicsImageRenderer(size: size).image { context in
@@ -132,6 +134,25 @@ final class LocalStore {
                 .foregroundColor: UIColor.white
             ]
             let text = (initials.isEmpty ? "?" : initials) as NSString
+            let textSize = text.size(withAttributes: attributes)
+            text.draw(at: CGPoint(x: (size.width - textSize.width) / 2,
+                                  y: (size.height - textSize.height) / 2),
+                      withAttributes: attributes)
+        }
+    }
+
+    /// Avatar por defecto: inicial del nombre sobre el color principal de la app.
+    static func avatar(for name: String?) -> UIImage {
+        let initial = name?.trimmingCharacters(in: .whitespaces).first.map { String($0).uppercased() } ?? "?"
+        let size = CGSize(width: 240, height: 240)
+        return UIGraphicsImageRenderer(size: size).image { context in
+            (UIColor(named: "MainColor") ?? .systemIndigo).setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 110, weight: .bold),
+                .foregroundColor: UIColor(named: "AccentColor") ?? .systemOrange
+            ]
+            let text = initial as NSString
             let textSize = text.size(withAttributes: attributes)
             text.draw(at: CGPoint(x: (size.width - textSize.width) / 2,
                                   y: (size.height - textSize.height) / 2),
@@ -161,6 +182,17 @@ final class LocalStore {
 
     private static func hash(_ password: String, salt: String) -> String {
         SHA256.hash(data: Data((salt + password).utf8)).map { String(format: "%02x", $0) }.joined()
+    }
+
+    /// Crea la cuenta demo (Daiv) la primera vez que se abre la app.
+    func ensureDemoAccount() {
+        let demo = Constants.DemoAccount.self
+        guard loadAccounts()[demo.email.lowercased()] == nil else { return }
+        _ = try? register(name: demo.name, email: demo.email, password: demo.password)
+    }
+
+    static func isAdmin(email: String?) -> Bool {
+        email?.lowercased() == Constants.DemoAccount.email
     }
 
     func register(name: String, email: String, password: String) throws -> LoginResponse {

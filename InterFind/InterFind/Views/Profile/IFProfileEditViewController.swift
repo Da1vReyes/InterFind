@@ -68,7 +68,7 @@ class IFProfileEditViewController: UIViewController {
            let savedImage = UIImage(data: imageData) {
             profileImage.image = savedImage
         } else {
-            profileImage.setImageWithResources("chanchito-feliz")
+            profileImage.image = LocalStore.avatar(for: UserDefaultsManager.shared.get(forKey: "name"))
         }
         birthdateField.placeholder = UserDefaultsManager.shared.get(forKey: "birthdate")
         phoneTextField.text = UserDefaultsManager.shared.get(forKey: "phone")
@@ -124,7 +124,7 @@ class IFProfileEditViewController: UIViewController {
     
     private func setupProfileImage() {
         profileImage = IFImageView()
-        profileImage.setImageWithResources("chanchito-feliz")
+        profileImage.image = LocalStore.avatar(for: UserDefaultsManager.shared.get(forKey: "name"))
         profileImage.contentMode = .scaleAspectFill
         profileImage.clipsToBounds = true
         profileImage.layer.cornerRadius = 60

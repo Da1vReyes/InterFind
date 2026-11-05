@@ -38,7 +38,7 @@ class IFProfileViewController: UIViewController {
            let savedImage = UIImage(data: imageData) {
             profileImage.image = savedImage
         } else {
-            profileImage.setImageWithResources("chanchito-feliz")
+            profileImage.image = LocalStore.avatar(for: UserDefaultsManager.shared.get(forKey: "name"))
         }
     }
     func configureNavigationController() {
@@ -58,8 +58,8 @@ class IFProfileViewController: UIViewController {
     }
     private func hideCreateNewInternshipButtonAndAddDocument() {
         
-        let email = UserDefaultsManager.shared.get(forKey: "email") ?? ""
-        if email != "admin@interfind.app" {
+        let email = UserDefaultsManager.shared.get(forKey: "email")
+        if !LocalStore.isAdmin(email: email) {
             createNewInternshipButton.isHidden = true
         }// else {
            // addDocumentButton.isHidden = true
@@ -183,6 +183,21 @@ class IFProfileViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
+
+        var config = UIButton.Configuration.plain()
+        config.title = "Cerrar sesión"
+        config.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+        config.imagePadding = 8
+        config.baseForegroundColor = .systemRed
+        let logoutButton = UIButton(configuration: config)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
+        view.addSubview(logoutButton)
+
+        NSLayoutConstraint.activate([
+            logoutButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+            logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 
     // MARK: - Acciones
@@ -217,6 +232,18 @@ class IFProfileViewController: UIViewController {
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = false
         present(documentPicker, animated: true)
+    }
+
+    @objc func logoutTapped() {
+        let alert = UIAlertController(title: "Cerrar sesión",
+                                      message: "¿Quieres salir de tu cuenta?",
+                                      preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cerrar sesión", style: .destructive) { _ in
+            LoginController.logout()
+            AppRouter.showLogin()
+        })
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+        present(alert, animated: true)
     }
 
     @objc func addExperiencia() {

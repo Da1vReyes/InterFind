@@ -62,6 +62,15 @@ class LoginController {
         
     }
     
+    static func logout() {
+        if let email = UserDefaultsManager.shared.get(forKey: "email") {
+            try? KeychainManager.delete(service: Constants.keychainService, account: email)
+        }
+        ["name", "email", "id", "location", "phone", "birthdate", "profileImageData"].forEach {
+            UserDefaults.standard.removeObject(forKey: $0)
+        }
+    }
+
     static func isLoggedIn() -> Bool {
         guard let account = UserDefaultsManager.shared.get(forKey: "email") else { return false }
         guard let _ = KeychainManager.get(service: Constants.keychainService, account: account) else { return false }

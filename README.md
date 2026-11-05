@@ -12,6 +12,17 @@ App iOS (UIKit) para descubrir pasantías, 100% local: sin servidor, sin Firebas
 - **Banners Big Tech:** los anuncios se reemplazaron por tarjetas que abren las páginas oficiales de programas para estudiantes (Google, Microsoft, Apple, Amazon, Meta, NVIDIA).
 - **Datos de ejemplo:** `internships.json` incluye pasantías de empresas ficticias para la primera ejecución.
 - **Rebranding:** proyecto, bundle ID y prefijo de componentes `IF`.
+- **Nuevo flujo:** el onboarding solo aparece la primera vez, hay botón de entrada demo y se puede cerrar sesión.
+- **Pestañas rediseñadas:** Inicio, Buscar, Guardados y Perfil, con íconos rellenos al seleccionar.
+- **Avatar por defecto:** inicial del nombre en lugar de una imagen fija.
+
+## Cuenta demo
+
+| Usuario | Correo | Contraseña |
+|---|---|---|
+| Daiv | `daiv@interfind.app` | `interfind` |
+
+También puedes tocar **"Entrar como Daiv (demo)"** en el login. Es la cuenta administradora: puede publicar y eliminar pasantías.
 
 ## Funcionalidades
 

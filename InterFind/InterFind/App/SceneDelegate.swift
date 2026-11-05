@@ -15,13 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = createRootViewController()
+        LocalStore.shared.ensureDemoAccount()
+        window?.rootViewController = AppRouter.initialViewController()
         window?.makeKeyAndVisible()
-    }
-    
-    func createRootViewController() -> UIViewController {
-        let onboardingController = UINavigationController(rootViewController: IFOnboardingVC())
-        return LoginController.isLoggedIn() ? IFTabBarController(homeViewController: IFHomeViewController()) : onboardingController
     }
     
     func sceneDidDisconnect(_ scene: UIScene) { }
