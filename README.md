@@ -7,10 +7,15 @@
 <p align="center">An offline-first iOS app for students looking for their first internship.</p>
 
 <p align="center">
-  <img src="docs/screenshots/01-onboarding.png" width="200" alt="Onboarding">
-  <img src="docs/screenshots/02-home.png" width="200" alt="Home">
-  <img src="docs/screenshots/03-search.png" width="200" alt="Search">
-  <img src="docs/screenshots/04-detail.png" width="200" alt="Internship detail">
+  <img src="docs/screenshots/showcase.png" alt="InterFind screens: home, search, internship detail and saved">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/01-onboarding.png" width="160" alt="Onboarding">
+  <img src="docs/screenshots/02-login.png" width="160" alt="Login">
+  <img src="docs/screenshots/03-home.png" width="160" alt="Home">
+  <img src="docs/screenshots/05-detail.png" width="160" alt="Internship detail">
+  <img src="docs/screenshots/07-profile.png" width="160" alt="Profile">
 </p>
 
 ## About
