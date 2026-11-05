@@ -1,0 +1,123 @@
+{
+  "data": [
+    {
+      "id": "seed-001",
+      "companyName": "Lumen Robotics",
+      "title": "Embedded Software Intern",
+      "description": "Write firmware for warehouse robots in C++ and test it on real hardware with the controls team.",
+      "duration": "12 weeks",
+      "location": "Austin, TX",
+      "requirements": "C or C++, basic electronics, curiosity about hardware.",
+      "benefits": "Hardware Mentorship Housing",
+      "imageUrl": "",
+      "stipend": "$4,200 / mo"
+    },
+    {
+      "id": "seed-002",
+      "companyName": "Tidewater Health",
+      "title": "Product Design Intern",
+      "description": "Shape the patient check-in experience of a telehealth app, from research interviews to Figma prototypes.",
+      "duration": "10 weeks",
+      "location": "Remote",
+      "requirements": "A portfolio with two case studies, Figma.",
+      "benefits": "Remote Flexible Mentorship",
+      "imageUrl": "",
+      "stipend": "$3,100 / mo"
+    },
+    {
+      "id": "seed-003",
+      "companyName": "Northwind Climate",
+      "title": "Data Science Intern",
+      "description": "Build models that forecast solar output for community energy projects using Python and open weather data.",
+      "duration": "6 months",
+      "location": "Toronto, ON",
+      "requirements": "Python, pandas, statistics coursework.",
+      "benefits": "Hybrid Research Equity",
+      "imageUrl": "",
+      "stipend": "$3,600 / mo"
+    },
+    {
+      "id": "seed-004",
+      "companyName": "Kestrel Games",
+      "title": "iOS Engineering Intern",
+      "description": "Ship SwiftUI features for a puzzle game played by two million people and pair with senior engineers every week.",
+      "duration": "12 weeks",
+      "location": "Remote",
+      "requirements": "Swift, one app you built yourself.",
+      "benefits": "Remote Pairing Hardware",
+      "imageUrl": "",
+      "stipend": "$4,000 / mo"
+    },
+    {
+      "id": "seed-005",
+      "companyName": "Atlas Freight",
+      "title": "Operations Analyst Intern",
+      "description": "Find bottlenecks in cross-border shipping routes and present your fixes to the operations leadership.",
+      "duration": "4 months",
+      "location": "Mexico City",
+      "requirements": "Excel or SQL, clear writing.",
+      "benefits": "Hybrid Travel Mentorship",
+      "imageUrl": "",
+      "stipend": "$1,500 / mo"
+    },
+    {
+      "id": "seed-006",
+      "companyName": "Paperplane Studio",
+      "title": "Brand Design Intern",
+      "description": "Design campaigns, motion pieces and social assets for startups launching their first product.",
+      "duration": "3 months",
+      "location": "Lisbon",
+      "requirements": "Adobe or Figma, a sharp eye for type.",
+      "benefits": "Flexible Portfolio Studio",
+      "imageUrl": "",
+      "stipend": "$1,400 / mo"
+    },
+    {
+      "id": "seed-007",
+      "companyName": "Quanta Bank",
+      "title": "Security Engineering Intern",
+      "description": "Help the red team test internal tools, write detection rules and document what you find.",
+      "duration": "12 weeks",
+      "location": "New York, NY",
+      "requirements": "Networking basics, any scripting language.",
+      "benefits": "Certification Mentorship Onsite",
+      "imageUrl": "",
+      "stipend": "$5,200 / mo"
+    },
+    {
+      "id": "seed-008",
+      "companyName": "Mosaic Learning",
+      "title": "Content Strategy Intern",
+      "description": "Plan and write lessons for a learning app that teaches coding to high-school students in Latin America.",
+      "duration": "4 months",
+      "location": "Remote",
+      "requirements": "Strong writing in English and Spanish.",
+      "benefits": "Remote Flexible Impact",
+      "imageUrl": ""
+    },
+    {
+      "id": "seed-009",
+      "companyName": "Helix Bio",
+      "title": "Lab Automation Intern",
+      "description": "Automate lab experiments with Python scripts that drive liquid-handling robots.",
+      "duration": "6 months",
+      "location": "Boston, MA",
+      "requirements": "Python, chemistry or biology coursework.",
+      "benefits": "Research Mentorship Housing",
+      "imageUrl": "",
+      "stipend": "$3,800 / mo"
+    },
+    {
+      "id": "seed-010",
+      "companyName": "Orbit Cloud",
+      "title": "Backend Engineering Intern",
+      "description": "Build Go services behind a developer platform used by thousands of teams, with real code review from day one.",
+      "duration": "12 weeks",
+      "location": "Berlin",
+      "requirements": "Any backend language, Git, HTTP basics.",
+      "benefits": "Hybrid Relocation Mentorship",
+      "imageUrl": "",
+      "stipend": "€2,600 / mo"
+    }
+  ]
+}
